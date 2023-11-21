@@ -1,9 +1,10 @@
 package com.holub.application.sandwich;
 
+import com.holub.application.constant.BreadType;
 import com.holub.application.service.PriceManager;
 
 public class HoneyOatBreadSandwich implements Sandwich {
-    String name = "honey_oat";
+    String name = BreadType.HONEY_OAT.getName();
 
     @Override
     public String getDescription() {

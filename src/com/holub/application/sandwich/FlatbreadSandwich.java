@@ -1,10 +1,11 @@
 package com.holub.application.sandwich;
 
+import com.holub.application.constant.BreadType;
 import com.holub.application.service.PriceManager;
 
 public class FlatbreadSandwich implements Sandwich {
 
-    public String name = "flatbread";
+    public String name = BreadType.FLATBREAD.getName();
 
     @Override
     public String getDescription() {

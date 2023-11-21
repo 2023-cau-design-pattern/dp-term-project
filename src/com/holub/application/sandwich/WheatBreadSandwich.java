@@ -1,10 +1,11 @@
 package com.holub.application.sandwich;
 
+import com.holub.application.constant.BreadType;
 import com.holub.application.service.PriceManager;
 
 public class WheatBreadSandwich implements Sandwich {
 
-    public String name = "wheat";
+    public String name = BreadType.WHEAT.getName();
 
     @Override
     public String getDescription() {

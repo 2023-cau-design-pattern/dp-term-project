@@ -32,6 +32,9 @@ public class PriceManager {
         priceMap.put("tomato", 0.25);
         priceMap.put("cheese", 0.75);
         priceMap.put("ham", 1.00);
+        priceMap.put("coffee", 1.5);
+        priceMap.put("tea", 1.0);
+        priceMap.put("coke", 1.25);
 
     }
 

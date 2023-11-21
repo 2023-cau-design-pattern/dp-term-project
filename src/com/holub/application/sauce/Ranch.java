@@ -1,12 +1,13 @@
 package com.holub.application.sauce;
 
+import com.holub.application.constant.SauceType;
 import com.holub.application.sandwich.Sandwich;
 import com.holub.application.sandwich.SandwichDecorator;
 import com.holub.application.service.PriceManager;
 
 public class Ranch extends SandwichDecorator {
 
-    public String name = "ranch";
+    public String name = SauceType.RANCH.getName();
 
     public Ranch(Sandwich decoratedSandwich) {
         super(decoratedSandwich);

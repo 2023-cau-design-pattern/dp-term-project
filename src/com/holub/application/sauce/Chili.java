@@ -2,8 +2,11 @@ package com.holub.application.sauce;
 
 import com.holub.application.sandwich.Sandwich;
 import com.holub.application.sandwich.SandwichDecorator;
+import com.holub.application.service.PriceManager;
 
 public class Chili extends SandwichDecorator {
+
+    public String name = "chili";
 
     public Chili(Sandwich decoratedSandwich) {
         super(decoratedSandwich);
@@ -16,6 +19,6 @@ public class Chili extends SandwichDecorator {
 
     @Override
     public double getCost() {
-        return super.getCost() + 0.45;
+        return super.getCost() + PriceManager.getInstance().getPrice(this.name);
     }
 }

@@ -1,6 +1,9 @@
 package com.holub.application.sandwich;
 
+import com.holub.application.service.PriceManager;
+
 public class HoneyOatBreadSandwich implements Sandwich {
+    String name = "honey_oat";
 
     @Override
     public String getDescription() {
@@ -9,6 +12,6 @@ public class HoneyOatBreadSandwich implements Sandwich {
 
     @Override
     public double getCost() {
-        return 6.00;
+        return PriceManager.getInstance().getPrice(this.name);
     }
 }

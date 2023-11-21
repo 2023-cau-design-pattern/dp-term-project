@@ -2,8 +2,11 @@ package com.holub.application.topping;
 
 import com.holub.application.sandwich.Sandwich;
 import com.holub.application.sandwich.SandwichDecorator;
+import com.holub.application.service.PriceManager;
 
 public class Ham extends SandwichDecorator {
+
+    public String name = "ham";
 
     public Ham(Sandwich decoratedSandwich) {
         super(decoratedSandwich);
@@ -16,6 +19,6 @@ public class Ham extends SandwichDecorator {
 
     @Override
     public double getCost() {
-        return super.getCost() + 1.00;
+        return super.getCost() + PriceManager.getInstance().getPrice(this.name);
     }
 }

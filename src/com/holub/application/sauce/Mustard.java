@@ -2,9 +2,12 @@ package com.holub.application.sauce;
 
 import com.holub.application.sandwich.Sandwich;
 import com.holub.application.sandwich.SandwichDecorator;
+import com.holub.application.service.PriceManager;
 
 // 소스 데코레이터
 public class Mustard extends SandwichDecorator {
+
+    public String name = "mustard";
 
     public Mustard(Sandwich decoratedSandwich) {
         super(decoratedSandwich);
@@ -17,6 +20,6 @@ public class Mustard extends SandwichDecorator {
 
     @Override
     public double getCost() {
-        return super.getCost() + 0.30;
+        return super.getCost() + PriceManager.getInstance().getPrice(this.name);
     }
 }

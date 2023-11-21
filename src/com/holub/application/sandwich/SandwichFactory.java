@@ -10,7 +10,6 @@ import com.holub.application.topping.Tomato;
 public class SandwichFactory {
     public static Sandwich createSandwich(String breadType, String[] ingredients) {
         Sandwich sandwich = getBreadType(breadType);
-
         for (String ingredient : ingredients) {
             sandwich = addIngredient(sandwich, ingredient);
         }

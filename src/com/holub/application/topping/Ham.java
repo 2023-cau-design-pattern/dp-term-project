@@ -1,12 +1,13 @@
 package com.holub.application.topping;
 
+import com.holub.application.constant.ToppingType;
 import com.holub.application.sandwich.Sandwich;
 import com.holub.application.sandwich.SandwichDecorator;
 import com.holub.application.service.PriceManager;
 
 public class Ham extends SandwichDecorator {
 
-    public String name = "ham";
+    public String name = ToppingType.HAM.getName();
 
     public Ham(Sandwich decoratedSandwich) {
         super(decoratedSandwich);

@@ -23,10 +23,24 @@ public class InputView {
         return patty;
     }
 
+    public String readSauce() {
+        System.out.println(ConsoleMessage.SAUCE_SELECTION.getMessage());
+        String sauce = Console.readLine();
+
+        return sauce;
+    }
+
     public List<String> readToppings() {
         System.out.println(ConsoleMessage.TOPPINGS_SELECTION.getMessage());
         String toppings = Console.readLine();
 
         return Arrays.stream(toppings.split(",")).toList();
+    }
+
+    public String readBeverage() {
+        System.out.println(ConsoleMessage.BEVERAGE_SELECTION.getMessage());
+        String beverage = Console.readLine();
+
+        return beverage;
     }
 }

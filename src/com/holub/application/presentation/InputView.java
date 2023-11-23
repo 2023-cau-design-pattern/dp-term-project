@@ -1,19 +1,29 @@
 package com.holub.application.presentation;
 
 import com.holub.application.presentation.message.ConsoleMessage;
+import com.holub.application.presentation.validator.InputValidator;
 import java.util.Arrays;
 import java.util.List;
 
 public class InputView {
+    private final InputValidator inputValidator = new InputValidator();
     public void greeting() {
         System.out.println(ConsoleMessage.GREETING.getMessage());
     }
 
     public String readBread() {
-        System.out.println(ConsoleMessage.BREAD_SELECTION.getMessage());
-        String bread = Console.readLine();
+        while (true) {
+            System.out.println(ConsoleMessage.BREAD_TYPE.getMessage());
+            System.out.println(ConsoleMessage.BREAD_SELECTION.getMessage());
+            String bread = Console.readLine();
 
-        return bread;
+            try {
+                inputValidator.validateBreadType(bread);
+                return bread;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public String readPatty() {
@@ -24,23 +34,47 @@ public class InputView {
     }
 
     public String readSauce() {
-        System.out.println(ConsoleMessage.SAUCE_SELECTION.getMessage());
-        String sauce = Console.readLine();
+        while (true) {
+            System.out.println(ConsoleMessage.SAUCE_TYPE.getMessage());
+            System.out.println(ConsoleMessage.SAUCE_SELECTION.getMessage());
+            String sauce = Console.readLine();
 
-        return sauce;
+            try {
+                inputValidator.validateSauceType(sauce);
+                return sauce;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public List<String> readToppings() {
-        System.out.println(ConsoleMessage.TOPPINGS_SELECTION.getMessage());
-        String toppings = Console.readLine();
+        while (true) {
+            System.out.println(ConsoleMessage.TOPPINGS_TYPE.getMessage());
+            System.out.println(ConsoleMessage.TOPPINGS_SELECTION.getMessage());
+            String toppings = Console.readLine();
 
-        return Arrays.stream(toppings.split(",")).toList();
+            try {
+                inputValidator.validateToppingsType(toppings);
+                return Arrays.stream(toppings.split(",")).toList();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public String readBeverage() {
-        System.out.println(ConsoleMessage.BEVERAGE_SELECTION.getMessage());
-        String beverage = Console.readLine();
+        while (true) {
+            System.out.println(ConsoleMessage.BEVERAGE_TYPE.getMessage());
+            System.out.println(ConsoleMessage.BEVERAGE_SELECTION.getMessage());
+            String beverage = Console.readLine();
 
-        return beverage;
+            try {
+                inputValidator.validateBeverageType(beverage);
+                return beverage;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

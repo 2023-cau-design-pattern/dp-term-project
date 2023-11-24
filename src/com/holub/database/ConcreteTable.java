@@ -267,57 +267,6 @@ import com.holub.tools.ArrayIterator;
 		}
 	}
 
-	// @cursor-end
-	// ----------------------------------------------------------------------
-	// Undo subsystem.
-	//
-	private interface Undo {
-		void execute();
-	}
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	private class UndoInsert implements Undo {
-		private final Object[] insertedRow;
-
-		public UndoInsert(Object[] insertedRow) {
-			this.insertedRow = insertedRow;
-		}
-
-		public void execute() {
-			rowSet.remove(insertedRow);
-		}
-	}
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	private class UndoDelete implements Undo {
-		private final Object[] deletedRow;
-
-		public UndoDelete(Object[] deletedRow) {
-			this.deletedRow = deletedRow;
-		}
-
-		public void execute() {
-			rowSet.add(deletedRow);
-		}
-	}
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	private class UndoUpdate implements Undo {
-		private Object[] row;
-		private int cell;
-		private Object oldContents;
-
-		public UndoUpdate(Object[] row, int cell, Object oldContents) {
-			this.row = row;
-			this.cell = cell;
-			this.oldContents = oldContents;
-		}
-
-		public void execute() {
-			row[cell] = oldContents;
-		}
-	}
-
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public void begin() {
 		transactionManager.begin(this.tableName);

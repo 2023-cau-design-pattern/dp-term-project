@@ -320,7 +320,7 @@ import com.holub.tools.ArrayIterator;
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public void begin() {
-		transactionStack.addLast(new LinkedList());
+		transactionManager.begin(this.tableName);
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

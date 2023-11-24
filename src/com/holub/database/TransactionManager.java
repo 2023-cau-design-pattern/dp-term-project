@@ -13,6 +13,10 @@ public class TransactionManager {
 		return transactionManager;
 	}
 	
+	// ----------------------------------------------------------------------
+	// @Transaction
+	// begin, commit, rollback
+	//
 	public void begin(String model) {
 		LinkedList transactionStack = getTransactionStack(model);
 		transactionStack.addLast(new LinkedList());
@@ -57,5 +61,33 @@ public class TransactionManager {
 		
 		return transactionStack;
 	}
+	
+	// ----------------------------------------------------------------------
+	// @Register
+	// register in transaction stack
+	// 
+	private void register(String model, Undo op) {
+		LinkedList transactionStack = getTransactionStack(model);
+		((LinkedList) transactionStack.getLast()).addLast(op);
+	}
+	
+	public void registerUpdate(String model, Object[] row, int cell, Object oldContents) {
+		LinkedList transactionStack = getTransactionStack(model);
+		if (!transactionStack.isEmpty())
+			register(model, new UndoUpdate(row, cell, oldContents));
+	}
+
+	public void registerDelete(String model, Object[] oldRow) {
+		LinkedList transactionStack = getTransactionStack(model);
+		if (!transactionStack.isEmpty())
+			register(model, new UndoDelete(oldRow));
+	}
+
+	public void registerInsert(String model, Object[] newRow) {
+		LinkedList transactionStack = getTransactionStack(model);
+		if (!transactionStack.isEmpty())
+			register(model, new UndoInsert(newRow));
+	}
+	// ----------------------------------------------------------------------
 	
 }

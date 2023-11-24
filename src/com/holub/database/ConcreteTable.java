@@ -324,26 +324,6 @@ import com.holub.tools.ArrayIterator;
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	private void register(Undo op) {
-		((LinkedList) transactionStack.getLast()).addLast(op);
-	}
-
-	private void registerUpdate(Object[] row, int cell, Object oldContents) {
-		if (!transactionStack.isEmpty())
-			register(new UndoUpdate(row, cell, oldContents));
-	}
-
-	private void registerDelete(Object[] oldRow) {
-		if (!transactionStack.isEmpty())
-			register(new UndoDelete(oldRow));
-	}
-
-	private void registerInsert(Object[] newRow) {
-		if (!transactionStack.isEmpty())
-			register(new UndoInsert(newRow));
-	}
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public void commit(boolean all) throws IllegalStateException {
 		transactionManager.commit(this.tableName, all);
 	}

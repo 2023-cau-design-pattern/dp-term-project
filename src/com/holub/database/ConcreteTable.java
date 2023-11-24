@@ -188,7 +188,7 @@ import com.holub.tools.ArrayIterator;
 	// ----------------------------------------------------------------------
 	private void doInsert(Object[] newRow) {
 		rowSet.add(newRow);
-		registerInsert(newRow);
+		transactionManager.registerInsert(this.tableName, newRow);
 		isDirty = true;
 	}
 
@@ -254,7 +254,7 @@ import com.holub.tools.ArrayIterator;
 			row[index] = newValue;
 			isDirty = true;
 
-			registerUpdate(row, index, oldValue);
+			transactionManager.registerUpdate(this.tableName(), row, index, oldValue);
 			return oldValue;
 		}
 
@@ -263,7 +263,7 @@ import com.holub.tools.ArrayIterator;
 			rowIterator.remove();
 			isDirty = true;
 
-			registerDelete(oldRow);
+			transactionManager.registerDelete(this.tableName(), oldRow);
 		}
 	}
 

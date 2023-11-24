@@ -350,15 +350,7 @@ import com.holub.tools.ArrayIterator;
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public void rollback(boolean all) throws IllegalStateException {
-		if (transactionStack.isEmpty())
-			throw new IllegalStateException("No BEGIN for ROLLBACK");
-		do {
-			LinkedList currentLevel = (LinkedList) transactionStack.removeLast();
-
-			while (!currentLevel.isEmpty())
-				((Undo) currentLevel.removeLast()).execute();
-
-		} while (all && !transactionStack.isEmpty());
+		rowSet = transactionManager.rollback(this.tableName, all, rowSet);
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

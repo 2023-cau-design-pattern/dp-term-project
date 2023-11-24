@@ -31,6 +31,23 @@ public class TransactionManager {
 		} while (all && !transactionStack.isEmpty());
 	}
 	
+	public LinkedList rollback(String model, boolean all, LinkedList rowSet) throws IllegalStateException {
+		LinkedList transactionStack = getTransactionStack(model);
+
+		if (transactionStack.isEmpty())
+			throw new IllegalStateException("No BEGIN for ROLLBACK");
+		do {
+			LinkedList currentLevel = (LinkedList) transactionStack.removeLast();
+
+			while (!currentLevel.isEmpty())
+				rowSet = ((Undo) currentLevel.removeLast()).execute(rowSet);
+			
+		} while (all && !transactionStack.isEmpty());
+		
+		return rowSet;
+	}
+	
+	
 	private LinkedList getTransactionStack(String model) {
 		LinkedList transactionStack = transactionStacks.get(model);
 		if (transactionStack == null) {

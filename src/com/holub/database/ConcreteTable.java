@@ -65,7 +65,7 @@ import com.holub.tools.ArrayIterator;
 	private String tableName;
 
 	private transient boolean isDirty = false;
-	private transient LinkedList transactionStack = new LinkedList();
+
 	private TransactionManager transactionManager = TransactionManager.getInstance();
 
 	/**********************************************************************

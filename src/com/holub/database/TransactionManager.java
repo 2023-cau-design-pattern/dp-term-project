@@ -18,6 +18,19 @@ public class TransactionManager {
 		transactionStack.addLast(new LinkedList());
 	}
 	
+	public void commit(String model, boolean all) throws IllegalStateException {
+		LinkedList transactionStack = getTransactionStack(model);
+		if (transactionStack.isEmpty())
+			throw new IllegalStateException("No BEGIN for COMMIT");
+		do {
+			LinkedList currentLevel = (LinkedList) transactionStack.removeLast();
+
+			if (!transactionStack.isEmpty())
+				((LinkedList) transactionStack.getLast()).addAll(currentLevel);
+
+		} while (all && !transactionStack.isEmpty());
+	}
+	
 	private LinkedList getTransactionStack(String model) {
 		LinkedList transactionStack = transactionStacks.get(model);
 		if (transactionStack == null) {

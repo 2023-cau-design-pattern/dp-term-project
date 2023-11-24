@@ -345,15 +345,7 @@ import com.holub.tools.ArrayIterator;
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public void commit(boolean all) throws IllegalStateException {
-		if (transactionStack.isEmpty())
-			throw new IllegalStateException("No BEGIN for COMMIT");
-		do {
-			LinkedList currentLevel = (LinkedList) transactionStack.removeLast();
-
-			if (!transactionStack.isEmpty())
-				((LinkedList) transactionStack.getLast()).addAll(currentLevel);
-
-		} while (all && !transactionStack.isEmpty());
+		transactionManager.commit(this.tableName, all);
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

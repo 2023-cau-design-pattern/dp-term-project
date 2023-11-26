@@ -1,7 +1,7 @@
 package com.holub.application.presentation;
 
 import com.holub.application.presentation.message.ConsoleMessage;
-import com.holub.application.presentation.message.ErrorMessage;
+import com.holub.application.presentation.payment.Payment;
 import java.util.List;
 
 public class ConsoleController {
@@ -12,7 +12,10 @@ public class ConsoleController {
     private static final String OPTION_BEVERAGE = "음료";
     private static final String OPTION_NONE = "없음";
     private final InputView inputView = new InputView();
-    private Order order;
+
+    public Payment readPayment(double totalPrice) {
+        return inputView.readPayment(totalPrice);
+    }
 
     public Order readOrder() {
         inputView.greeting();
@@ -32,7 +35,7 @@ public class ConsoleController {
 
             String modificationChoice = askForModification();
             if (modificationChoice.equals(OPTION_NONE)) {
-                return new Order(bread, patty, sauce, toppings, beverage);
+                return new Order(bread, sauce, toppings, beverage);
             }
             showCurrentChoice(bread, patty, toppings);
 
@@ -51,6 +54,8 @@ public class ConsoleController {
             else if (modificationChoice.equals(OPTION_BEVERAGE)) {
                 beverage = null;
             }
+
+            return new Order(bread, sauce, toppings, beverage);
         }
     }
     private String chooseBread(String bread) {

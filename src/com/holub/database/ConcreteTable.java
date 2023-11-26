@@ -938,7 +938,8 @@ import com.holub.tools.ArrayIterator;
 
 			System.out.println("begin/orderBy people by 'first'");
 			people.begin();
-			people.orderBy("first");
+			ComputeOrderBy orderBy = new ComputeOrderBy(people, "first");
+			orderBy.execute();
 			System.out.println(people.toString());
 			
 			people.begin();
@@ -948,14 +949,14 @@ import com.holub.tools.ArrayIterator;
 
 			System.out.println("begin/orderBy people by 'addrId'");
 			people.begin();
-			people.orderBy("addrId");
+			orderBy = new ComputeOrderBy(people, "addrId");
+			orderBy.execute();
 			System.out.println(people.toString());
 			
 			System.out.println("commit(THIS_LEVEL)\n" + "rollback(Table.THIS_LEVEL)\n");
 			people.commit(Table.THIS_LEVEL);
 			people.rollback(Table.THIS_LEVEL);
 			System.out.println(people.toString());
-			
 		}
 
 		public void print(Table t) { // tests the table iterator

@@ -22,7 +22,7 @@ public enum ConsoleMessage {
     PAYMENT_TYPE(PaymentMethod.CASH.getMethod() + ", " + PaymentMethod.CREDIT_CARD.getMethod()),
     PAYMENT_SELECTION("결제할 방법을 선택해주세요."),
     CASH_PAYMENT("원입니다. 결제해주세요."),
-    CREDIT_CARD_PAYMENT("신용카드를 투입구에 끝까지 넣어주세요"),
+    CREDIT_CARD_PAYMENT("신용카드를 투입구에 끝까지 넣어주세요."),
     CREDIT_CARD_PROCESSING("결제 처리중입니다."),
     RESULT_MESSAGE("주문이 성공적으로 진행되었습니다.");
 

@@ -28,6 +28,8 @@ package com.holub.database;
 
 import java.io.*;
 import java.util.*;
+
+import com.holub.database.ConcreteTable.ObjectArrayComparator;
 import com.holub.tools.ArrayIterator;
 
 /**
@@ -935,6 +937,30 @@ import com.holub.tools.ArrayIterator;
 			}
 		}
 	}
+	
 	public void orderBy(String criteria) {
+		int indexOfCriteria = indexOf(criteria);
+		sortTable(rowSet, indexOfCriteria);
+	}
+	
+	private void sortTable(LinkedList rowSet, int indexOfCriteria) {
+		Collections.sort(rowSet, new ObjectArrayComparator(indexOfCriteria));
+	}
+	
+	class ObjectArrayComparator implements Comparator<Object[]> {
+	    private final int indexToCompare;
+
+	    public ObjectArrayComparator(int indexToCompare) {
+	        this.indexToCompare = indexToCompare;
+	    }
+
+	    @Override
+	    public int compare(Object[] o1, Object[] o2) {
+	        // 특정 인덱스의 값으로 비교
+	        Comparable<Object> value1 = (Comparable<Object>) o1[indexToCompare];
+	        Comparable<Object> value2 = (Comparable<Object>) o2[indexToCompare];
+
+	        return value1.compareTo(value2);
+	    }
 	}
 }

@@ -30,4 +30,43 @@ public class OrderByTest {
 				+ "Flintstone	Fred	4	\n"
 				+ "Flintstone	Wilma	2	\n");
 	}
+	
+	@Test
+	public void testOrderByCase2() {
+		Table address = TableFactory.create("address", new String[] { "addrId", "street"});
+		
+		address.insert(new Object[] { 152, "Sangdo"});
+		address.insert(new Object[] { 324, "Gangnam"});
+		address.insert(new Object[] { 23, "Jongno"});
+		address.insert(new Object[] { 1, "Daejeon"});
+		address.insert(new Object[] { 4, "Busan"});
+
+		System.out.println("begin/orderBy address by 'addrId'");
+		address.begin();
+		address.orderBy("addrId");
+		String result = address.toString();
+		System.out.println(result);
+		assertEquals(result, "address\n"
+				+ "addrId	street	\n"
+				+ "----------------------------------------\n"
+				+ "1	Daejeon	\n"
+				+ "4	Busan	\n"
+				+ "23	Jongno	\n"
+				+ "152	Sangdo	\n"
+				+ "324	Gangnam	\n");
+		
+		System.out.println("begin/orderBy address by 'street'");
+		address.begin();
+		address.orderBy("street");
+		result = address.toString();
+		System.out.println(result);
+		assertEquals(result, "address\n"
+				+ "addrId	street	\n"
+				+ "----------------------------------------\n"
+				+ "4	Busan	\n"
+				+ "1	Daejeon	\n"
+				+ "324	Gangnam	\n"
+				+ "23	Jongno	\n"
+				+ "152	Sangdo	\n");
+	}
 }

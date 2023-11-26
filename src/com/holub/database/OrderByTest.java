@@ -19,7 +19,8 @@ public class OrderByTest {
 
 		System.out.println("begin/orderBy people by 'first'");
 		people.begin();
-		people.orderBy("first");
+		ComputeOrderBy orderBy = new ComputeOrderBy(people, "first");
+		orderBy.execute();
 		
 		String result = people.toString();
 		System.out.println(result);
@@ -43,7 +44,8 @@ public class OrderByTest {
 
 		System.out.println("begin/orderBy address by 'addrId'");
 		address.begin();
-		address.orderBy("addrId");
+		ComputeOrderBy orderBy = new ComputeOrderBy(address, "addrId");
+		orderBy.execute();
 		String result = address.toString();
 		System.out.println(result);
 		assertEquals(result, "address\n"
@@ -57,7 +59,8 @@ public class OrderByTest {
 		
 		System.out.println("begin/orderBy address by 'street'");
 		address.begin();
-		address.orderBy("street");
+		orderBy = new ComputeOrderBy(address, "street");
+		orderBy.execute();
 		result = address.toString();
 		System.out.println(result);
 		assertEquals(result, "address\n"

@@ -5,6 +5,7 @@ import com.holub.application.constant.BreadType;
 import com.holub.application.constant.SauceType;
 import com.holub.application.constant.ToppingType;
 import com.holub.application.presentation.message.ErrorMessage;
+import com.holub.application.presentation.payment.PaymentMethod;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +21,16 @@ public class InputValidator {
         return BreadType.OAT.getName().equals(bread) || BreadType.WHEAT.getName().equals(bread) ||
             BreadType.WHITE.getName().equals(bread) || BreadType.HONEY_OAT.getName().equals(bread) ||
             BreadType.FLATBREAD.getName().equals(bread);
+    }
+
+    public void validatePaymentMethod(String method) {
+        if(!isValidPaymentMethod(method)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_PAYMENT_SELECTION.getMessage());
+        }
+    }
+
+    private boolean isValidPaymentMethod(String method) {
+        return PaymentMethod.CASH.getMethod().equals(method) || PaymentMethod.CREDIT_CARD.getMethod().equals(method);
     }
 
     public void validateSauceType(String sauce) {

@@ -1,16 +1,16 @@
 package com.holub.database;
 
 public class ComputeOrderBy implements Compute {
-	ConcreteTable concreteTable;
+	Table table;
 	String criteria;
 	
-	public ComputeOrderBy(ConcreteTable concreteTable, String criteria) {
-		this.concreteTable = concreteTable;
+	public ComputeOrderBy(Table table, String criteria) {
+		this.table = table;
 		this.criteria = criteria;
 	}
 
 	@Override
 	public void execute() {
-		concreteTable.orderBy(criteria);
+		table.orderBy(criteria);
 	}
 }

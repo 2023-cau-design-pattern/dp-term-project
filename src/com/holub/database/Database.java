@@ -825,14 +825,15 @@ public final class Database
 	// Return a Collection holding the list of columns
 	// or null if a * was found.
 
-	private List idList()			throws ParseFailure
-	{	List identifiers = null;
-		if( in.matchAdvance(STAR) == null )
-		{	identifiers = new ArrayList();
+	private List idList() throws ParseFailure {
+		List identifiers = new ArrayList<>();
+		if (in.matchAdvance(STAR) != null) {
+			identifiers.add("*"); // '*'를 특별한 값으로 처리
+		} else {
 			String id;
-			while( (id = in.required(IDENTIFIER)) != null )
-			{	identifiers.add(id);
-				if( in.matchAdvance(COMMA) == null )
+			while ((id = in.required(IDENTIFIER)) != null) {
+				identifiers.add(id);
+				if (in.matchAdvance(COMMA) == null)
 					break;
 			}
 		}
@@ -1408,9 +1409,25 @@ public final class Database
 		Table primary = (Table) tables.get( (String) tableNames.next() );
 
 		List participantsInJoin = new ArrayList();
-		while( tableNames.hasNext() )
-		{	String participant = (String) tableNames.next();
-			participantsInJoin.add( tables.get(participant) );
+
+		for (int i = 1; i < requestedTableNames.size(); i++) {
+			String participant = (String) requestedTableNames.get(i);
+			participantsInJoin.add(tables.get(participant));
+		}
+
+		// '*'이 들어왔을 경우 primary 테이블의 모든 컬럼을 선택합니다.
+		if (columns != null && columns.size() == 1 && columns.get(0).equals("*")) {
+			Cursor cursor = primary.rows();
+			if (cursor != null && cursor.advance()) {
+				int columnCount = cursor.columnCount();
+				columns = new ArrayList<>();
+				for (int i = 0; i < columnCount; i++) {
+					columns.add(cursor.columnName(i));
+				}
+			} else {
+				// 컬럼 이름을 얻을 수 없는 경우, 빈 컬럼 리스트를 사용
+				columns = new ArrayList<>();
+			}
 		}
 
 		// Now do the select operation. First create a Strategy

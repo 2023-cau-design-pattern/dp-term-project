@@ -33,7 +33,7 @@ public class OrderByTest {
 	}
 	
 	@Test
-	public void testOrderByCase2() {
+	public void testOrderByString() {
 		Table address = TableFactory.create("address", new String[] { "addrId", "street"});
 		
 		address.insert(new Object[] { 152, "Sangdo"});
@@ -56,12 +56,23 @@ public class OrderByTest {
 				+ "23	Jongno	\n"
 				+ "152	Sangdo	\n"
 				+ "324	Gangnam	\n");
+	}
+	
+	@Test
+	public void testOrderByInt() {
+		Table address = TableFactory.create("address", new String[] { "addrId", "street"});
+		
+		address.insert(new Object[] { 152, "Sangdo"});
+		address.insert(new Object[] { 324, "Gangnam"});
+		address.insert(new Object[] { 23, "Jongno"});
+		address.insert(new Object[] { 1, "Daejeon"});
+		address.insert(new Object[] { 4, "Busan"});
 		
 		System.out.println("begin/orderBy address by 'street'");
 		address.begin();
-		orderBy = new ComputeOrderBy(address, "street");
+		ComputeOrderBy orderBy = new ComputeOrderBy(address, "street");
 		orderBy.execute();
-		result = address.toString();
+		String result = address.toString();
 		System.out.println(result);
 		assertEquals(result, "address\n"
 				+ "addrId	street	\n"

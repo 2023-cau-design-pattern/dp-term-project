@@ -6,7 +6,6 @@ import java.util.List;
 
 public class ConsoleController {
     private static final String OPTION_BREAD = "빵";
-    private static final String OPTION_PATTY = "패티";
     private static final String OPTION_SAUCE = "소스";
     private static final String OPTION_TOPPINGS = "토핑";
     private static final String OPTION_BEVERAGE = "음료";
@@ -21,14 +20,12 @@ public class ConsoleController {
         inputView.greeting();
 
         String bread = null;
-        String patty = null;
         String sauce = null;
         List<String> toppings = null;
         String beverage = null;
 
         while (true) {
             bread = chooseBread(bread);
-            patty = choosePatty(patty);
             sauce = chooseSauce(sauce);
             toppings = chooseToppings(toppings);
             beverage = chooseBeverage(beverage);
@@ -37,13 +34,10 @@ public class ConsoleController {
             if (modificationChoice.equals(OPTION_NONE)) {
                 return new Order(bread, sauce, toppings, beverage);
             }
-            showCurrentChoice(bread, patty, toppings);
+            showCurrentChoice(bread, sauce, toppings);
 
             if (modificationChoice.equals(OPTION_BREAD)) {
                 bread = null;
-            }
-            else if (modificationChoice.equals(OPTION_PATTY)) {
-                patty = null;
             }
             else if (modificationChoice.equals(OPTION_SAUCE)) {
                 sauce = null;
@@ -64,21 +58,12 @@ public class ConsoleController {
         }
         return bread;
     }
-
-    private String choosePatty(String patty) {
-        if (patty == null) {
-            return inputView.readPatty();
-        }
-        return patty;
-    }
-
     private String chooseSauce(String sauce) {
         if (sauce == null) {
             return inputView.readSauce();
         }
         return sauce;
     }
-
     private List<String> chooseToppings(List<String> toppings) {
         if (toppings == null) {
             return inputView.readToppings();
@@ -93,8 +78,8 @@ public class ConsoleController {
         return beverage;
     }
 
-    private void showCurrentChoice(String bread, String patty, List<String> toppings) {
-        System.out.println("현재 선택하신 메뉴: 빵 - " + bread + ", 패티 - " + patty + ", 토핑 - " + String.join(", ", toppings));
+    private void showCurrentChoice(String bread, String sauce, List<String> toppings) {
+        System.out.println("현재 선택하신 메뉴: 빵 - " + bread + ", 소스 - " + sauce + ", 토핑 - " + String.join(", ", toppings));
     }
 
     private String askForModification() {

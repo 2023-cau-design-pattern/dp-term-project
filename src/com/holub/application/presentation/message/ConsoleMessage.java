@@ -7,11 +7,10 @@ import com.holub.application.constant.ToppingType;
 import com.holub.application.presentation.payment.PaymentMethod;
 
 public enum ConsoleMessage {
-    GREETING("xx 햄버거입니다."),
+    GREETING("xx 샌드위치입니다."),
     BREAD_TYPE(BreadType.WHEAT.getName() + ", " + BreadType.WHITE.getName() + ", " + BreadType.HONEY_OAT.getName() +
         ", " + BreadType.OAT.getName() + ", " + BreadType.FLATBREAD.getName()),
     BREAD_SELECTION("빵의 종류를 선택해주세요."),
-    PATTY_SELECTION("패티의 종류를 선택해주세요."),
     SAUCE_TYPE(SauceType.CHILI.getName() + ", " + SauceType.MUSTARD.getName() + ", " + SauceType.RANCH.getName()),
     SAUCE_SELECTION("소스의 종류를 선택해주세요."),
     TOPPINGS_TYPE(ToppingType.CHEESE.getName() + ", " + ToppingType.HAM.getName() + ", " + ToppingType.TOMATO.getName()),

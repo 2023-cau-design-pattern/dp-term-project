@@ -1,6 +1,9 @@
 package com.holub.database;
 
 import org.junit.*;
+
+import javax.sql.rowset.spi.XmlWriter;
+
 import static org.junit.Assert.*;
 import java.io.*;
 import java.util.Arrays;
@@ -8,13 +11,17 @@ import java.util.Iterator;
 
 public class XMLExporterTest {
 
-    private StringWriter stringWriter;
+//    private StringWriter stringWriter;
+    private FileWriter fileWriter;
     private XMLExporter exporter;
+    private File outputFile;
 
     @Before
-    public void setUp() {
-        stringWriter = new StringWriter();
-        exporter = new XMLExporter(stringWriter);
+    public void setUp() throws IOException {
+//        stringWriter = new StringWriter();
+        outputFile = new File("test.xml");
+        fileWriter = new FileWriter(outputFile);
+        exporter = new XMLExporter(fileWriter);
     }
 
     @Test
@@ -25,6 +32,8 @@ public class XMLExporterTest {
         exporter.storeRow(Arrays.asList("1", "John").iterator());
         exporter.storeRow(Arrays.asList("2", "Jane").iterator());
         exporter.endTable();
+
+        fileWriter.close();
 
         String expectedXML =
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -39,6 +48,17 @@ public class XMLExporterTest {
                         "</rows>\n" +
                         "</table>\n";
 
-        assertEquals(expectedXML, stringWriter.toString());
+
+        // 파일 내용 읽기
+        StringBuilder fileContent = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(outputFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                fileContent.append(line).append("\n");
+            }
+        }
+
+        // 기대하는 XML 문자열과 파일에서 읽은 내용 비교
+        assertEquals(expectedXML.trim(), fileContent.toString().trim());
     }
 }

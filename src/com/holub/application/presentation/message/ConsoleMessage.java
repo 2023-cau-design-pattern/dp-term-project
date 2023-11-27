@@ -18,7 +18,7 @@ public enum ConsoleMessage {
     TOPPINGS_SELECTION("토핑의 종류를 선택해주세요."),
     BEVERAGE_TYPE(BeverageType.COFFEE.getName() + ", " + BeverageType.COKE.getName() + ", " + BeverageType.TEA.getName()),
     BEVERAGE_SELECTION("음료의 종류를 선택해주세요."),
-    ASK_FOR_CHANGE("선택한 메뉴에 수정하고 싶은 카테고리가 있나요? (빵/패티/소스/토핑/음료/없음)"),
+    ASK_FOR_CHANGE("선택한 메뉴에 수정하고 싶은 카테고리가 있나요? (빵/소스/토핑/음료/없음)"),
     PAYMENT_TYPE(PaymentMethod.CASH.getMethod() + ", " + PaymentMethod.CREDIT_CARD.getMethod()),
     PAYMENT_SELECTION("결제할 방법을 선택해주세요."),
     CASH_PAYMENT("원입니다. 결제해주세요."),

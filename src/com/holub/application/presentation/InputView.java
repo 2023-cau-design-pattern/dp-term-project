@@ -29,13 +29,6 @@ public class InputView {
         }
     }
 
-    public String readPatty() {
-        System.out.println(ConsoleMessage.PATTY_SELECTION.getMessage());
-        String patty = Console.readLine();
-
-        return patty;
-    }
-
     public String readSauce() {
         while (true) {
             System.out.println(ConsoleMessage.SAUCE_TYPE.getMessage());

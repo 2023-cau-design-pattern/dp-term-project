@@ -23,7 +23,7 @@ public class InputValidatorTest {
     @Test
     public void testInvalidBreadType() {
         assertThrows(IllegalArgumentException.class, () -> validator.validateBreadType("InvalidBread"));
-        assertThrows(IllegalArgumentException.class, () -> validator.validateBreadType("r   ye"));
+        assertThrows(IllegalArgumentException.class, () -> validator.validateBreadType("rye"));
     }
 
     @Test

@@ -8,13 +8,15 @@ import java.util.Iterator;
 
 public class HTMLExporterTest {
 
-    private StringWriter stringWriter;
+    private File outputFile;
+    private FileWriter fileWriter;
     private HTMLExporter exporter;
 
     @Before
-    public void setUp() {
-        stringWriter = new StringWriter();
-        exporter = new HTMLExporter(stringWriter);
+    public void setUp() throws IOException {
+        outputFile = new File("test.html");
+        fileWriter = new FileWriter(outputFile);
+        exporter = new HTMLExporter(fileWriter);
     }
 
     @Test
@@ -25,6 +27,17 @@ public class HTMLExporterTest {
         exporter.storeRow(Arrays.asList("1", "John").iterator());
         exporter.storeRow(Arrays.asList("2", "Jane").iterator());
         exporter.endTable();
+
+        fileWriter.close();
+
+        // 파일 내용 읽기
+        StringBuilder fileContent = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(outputFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                fileContent.append(line).append("\n");
+            }
+        }
 
         String expectedHTML =
                 "<html><body>\n" +
@@ -38,6 +51,6 @@ public class HTMLExporterTest {
                         "</table>\n" +
                         "</body></html>\n";
 
-        assertEquals(expectedHTML, stringWriter.toString());
+        assertEquals(expectedHTML.trim(), fileContent.toString().trim());
     }
 }

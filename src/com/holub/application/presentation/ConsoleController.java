@@ -34,7 +34,7 @@ public class ConsoleController {
             if (modificationChoice.equals(OPTION_NONE)) {
                 return new Order(bread, sauce, toppings, beverage);
             }
-            showCurrentChoice(bread, sauce, toppings);
+            showCurrentChoice(bread, sauce, toppings, beverage);
 
             if (modificationChoice.equals(OPTION_BREAD)) {
                 bread = null;
@@ -48,8 +48,6 @@ public class ConsoleController {
             else if (modificationChoice.equals(OPTION_BEVERAGE)) {
                 beverage = null;
             }
-
-            return new Order(bread, sauce, toppings, beverage);
         }
     }
     private String chooseBread(String bread) {
@@ -78,8 +76,8 @@ public class ConsoleController {
         return beverage;
     }
 
-    private void showCurrentChoice(String bread, String sauce, List<String> toppings) {
-        System.out.println("현재 선택하신 메뉴: 빵 - " + bread + ", 소스 - " + sauce + ", 토핑 - " + String.join(", ", toppings));
+    private void showCurrentChoice(String bread, String sauce, List<String> toppings, String beverage) {
+        System.out.println("현재 선택하신 메뉴: 빵 - " + bread + ", 소스 - " + sauce + ", 토핑 - " + String.join(", ", toppings) + ", 음료 - " + beverage);
     }
 
     private String askForModification() {

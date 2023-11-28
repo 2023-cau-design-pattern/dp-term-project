@@ -16,10 +16,9 @@ public class Payment {
 
     @Override
     public String toString() {
-        return "Payment{" +
-            "sandwich=" + sandwich.getDescription() +
-            ", totalPrice=" + totalPrice +
-            ", paymentDate=" + paymentDate +
-            '}';
+        return "<결제 내역>" + "\n"
+            + "주문 명: " + sandwich.getDescription() + "\n"
+            + "가격: " + totalPrice + "\n"
+            + "결제 일자: " + paymentDate + "\n";
     }
 }

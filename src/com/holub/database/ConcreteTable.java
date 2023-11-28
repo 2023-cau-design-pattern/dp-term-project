@@ -67,7 +67,8 @@ import com.holub.tools.ArrayIterator;
 	private String tableName;
 
 	private transient boolean isDirty = false;
-	private transient LinkedList transactionStack = new LinkedList();
+
+	private TransactionManager transactionManager = TransactionManager.getInstance();
 
 	/**********************************************************************
 	 * Create a table with the given name and columns.
@@ -189,7 +190,7 @@ import com.holub.tools.ArrayIterator;
 	// ----------------------------------------------------------------------
 	private void doInsert(Object[] newRow) {
 		rowSet.add(newRow);
-		registerInsert(newRow);
+		transactionManager.registerInsert(this.tableName, newRow);
 		isDirty = true;
 	}
 
@@ -255,7 +256,7 @@ import com.holub.tools.ArrayIterator;
 			row[index] = newValue;
 			isDirty = true;
 
-			registerUpdate(row, index, oldValue);
+			transactionManager.registerUpdate(this.tableName(), row, index, oldValue);
 			return oldValue;
 		}
 
@@ -264,110 +265,23 @@ import com.holub.tools.ArrayIterator;
 			rowIterator.remove();
 			isDirty = true;
 
-			registerDelete(oldRow);
-		}
-	}
-
-	// @cursor-end
-	// ----------------------------------------------------------------------
-	// Undo subsystem.
-	//
-	private interface Undo {
-		void execute();
-	}
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	private class UndoInsert implements Undo {
-		private final Object[] insertedRow;
-
-		public UndoInsert(Object[] insertedRow) {
-			this.insertedRow = insertedRow;
-		}
-
-		public void execute() {
-			rowSet.remove(insertedRow);
-		}
-	}
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	private class UndoDelete implements Undo {
-		private final Object[] deletedRow;
-
-		public UndoDelete(Object[] deletedRow) {
-			this.deletedRow = deletedRow;
-		}
-
-		public void execute() {
-			rowSet.add(deletedRow);
-		}
-	}
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	private class UndoUpdate implements Undo {
-		private Object[] row;
-		private int cell;
-		private Object oldContents;
-
-		public UndoUpdate(Object[] row, int cell, Object oldContents) {
-			this.row = row;
-			this.cell = cell;
-			this.oldContents = oldContents;
-		}
-
-		public void execute() {
-			row[cell] = oldContents;
+			transactionManager.registerDelete(this.tableName(), oldRow);
 		}
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public void begin() {
-		transactionStack.addLast(new LinkedList());
-	}
-
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	private void register(Undo op) {
-		((LinkedList) transactionStack.getLast()).addLast(op);
-	}
-
-	private void registerUpdate(Object[] row, int cell, Object oldContents) {
-		if (!transactionStack.isEmpty())
-			register(new UndoUpdate(row, cell, oldContents));
-	}
-
-	private void registerDelete(Object[] oldRow) {
-		if (!transactionStack.isEmpty())
-			register(new UndoDelete(oldRow));
-	}
-
-	private void registerInsert(Object[] newRow) {
-		if (!transactionStack.isEmpty())
-			register(new UndoInsert(newRow));
+		transactionManager.begin(this.tableName);
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public void commit(boolean all) throws IllegalStateException {
-		if (transactionStack.isEmpty())
-			throw new IllegalStateException("No BEGIN for COMMIT");
-		do {
-			LinkedList currentLevel = (LinkedList) transactionStack.removeLast();
-
-			if (!transactionStack.isEmpty())
-				((LinkedList) transactionStack.getLast()).addAll(currentLevel);
-
-		} while (all && !transactionStack.isEmpty());
+		transactionManager.commit(this.tableName, all);
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	public void rollback(boolean all) throws IllegalStateException {
-		if (transactionStack.isEmpty())
-			throw new IllegalStateException("No BEGIN for ROLLBACK");
-		do {
-			LinkedList currentLevel = (LinkedList) transactionStack.removeLast();
-
-			while (!currentLevel.isEmpty())
-				((Undo) currentLevel.removeLast()).execute();
-
-		} while (all && !transactionStack.isEmpty());
+		rowSet = transactionManager.rollback(this.tableName, all, rowSet);
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

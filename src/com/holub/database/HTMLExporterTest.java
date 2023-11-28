@@ -1,10 +1,13 @@
 package com.holub.database;
 
 import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.Iterator;
+
+import static org.junit.Assert.assertEquals;
 
 public class HTMLExporterTest {
 

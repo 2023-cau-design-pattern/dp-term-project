@@ -19,6 +19,22 @@ public class SetUp {
 	public SetUp() { 
 		menu = TableFactory.create("menu", new String[] { "name", "price" });
 		order = TableFactory.create("order", new String[] { "title", "totalPrice", "date" });
+        
+		menu.insert(new Object[] {"wheat", 5.50});
+		menu.insert(new Object[] {"white", 5.00});
+		menu.insert(new Object[] {"honey_oat", 6.00});
+		menu.insert(new Object[] {"oat", 5.75});
+		menu.insert(new Object[] {"flatbread", 6.50});
+		menu.insert(new Object[] {"mustard", 0.30});
+		menu.insert(new Object[] {"chili", 0.45});
+		menu.insert(new Object[] {"ranch", 0.50});
+		menu.insert(new Object[] {"tomato", 0.25});
+		menu.insert(new Object[] {"cheese", 0.75});
+		menu.insert(new Object[] {"ham", 1.00});
+		menu.insert(new Object[] {"coffee", 1.5});
+		menu.insert(new Object[] {"tea", 1.0});
+		menu.insert(new Object[] {"coke", 1.25});
+		
 	}
 	
 	public String selectMenu(List columns) {

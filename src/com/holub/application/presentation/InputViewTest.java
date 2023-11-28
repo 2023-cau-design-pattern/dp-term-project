@@ -50,7 +50,7 @@ public class InputViewTest {
     }
 
     @Test
-    public void testReadToppingValidInput() {
+    public void testReadSauceValidInput() {
         String input = "chili\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 

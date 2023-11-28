@@ -1,11 +1,14 @@
 package com.holub.application.service;
 
+import com.holub.application.setting.SetUp;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class PriceManager {
     private static PriceManager instance;
     private final Map<String, Double> priceMap;
+    private static SetUp setUp = new SetUp();
 
     private PriceManager() {
         priceMap = new HashMap<>();
@@ -21,21 +24,21 @@ public class PriceManager {
     }
 
     private void loadPrices() {
-        priceMap.put("wheat", 5.50);
-        priceMap.put("white", 5.00);
-        priceMap.put("honey_oat", 6.00);
-        priceMap.put("oat", 5.75);
-        priceMap.put("flatbread", 6.50);
-        priceMap.put("mustard", 0.30);
-        priceMap.put("chili", 0.45);
-        priceMap.put("ranch", 0.50);
-        priceMap.put("tomato", 0.25);
-        priceMap.put("cheese", 0.75);
-        priceMap.put("ham", 1.00);
-        priceMap.put("coffee", 1.5);
-        priceMap.put("tea", 1.0);
-        priceMap.put("coke", 1.25);
 
+        String s = setUp.selectMenuAll();
+
+        // 문자열을 줄 단위로 분할
+        String[] lines = s.split("\n");
+
+        for (String line : lines) {
+            // 각 줄을 탭('\t')을 기준으로 분할하여 key와 value를 얻음
+            String[] parts = line.split("\t");
+            if (parts.length >= 2) {
+                String key = parts[0];
+                Double value = Double.parseDouble(parts[1]);
+                priceMap.put(key, value);
+            }
+        }
     }
 
     public double getPrice(String itemName) {

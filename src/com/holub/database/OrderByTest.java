@@ -2,7 +2,6 @@ package com.holub.database;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,6 @@ public class OrderByTest {
 		people.insert(new Object[] { "Flintstone", "Wilma", "2" });
 		people.insert(new String[] { "addrId", "first", "last" }, new Object[] { "4", "Fred", "Flintstone" });
 
-
 		address = TableFactory.create("address", new String[] { "addrId", "street"});
 		
 		address.insert(new Object[] { 152, "Sangdo"});
@@ -34,7 +32,7 @@ public class OrderByTest {
 	@Test
 	public void testOrderByCase1() {
 		System.out.println(people.toString());
-
+		
 		System.out.println("begin/orderBy people by 'first'");
 		people.begin();
 		ComputeOrderBy orderBy = new ComputeOrderBy(people, "first");
@@ -52,6 +50,8 @@ public class OrderByTest {
 	
 	@Test
 	public void testOrderByString() {
+		System.out.println(address.toString());
+		
 		System.out.println("begin/orderBy address by 'addrId'");
 		
 		address.begin();
@@ -72,6 +72,8 @@ public class OrderByTest {
 	
 	@Test
 	public void testOrderByInt() {
+		System.out.println(address.toString());
+		
 		System.out.println("begin/orderBy address by 'street'");
 		
 		address.begin();

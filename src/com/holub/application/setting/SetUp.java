@@ -46,6 +46,21 @@ public class SetUp {
 		return result.selectAll();
 	}
 	
+	public String selectOrderAll() {
+		return order.selectAll();
+	}
+	
+	public String selectMenuAll() {
+		return menu.selectAll();
+	}
+	
+	public String selectOrderOrderBy(String criteria) {
+		order.orderBy(criteria);
+		
+		return selectOrderAll();
+	}
+	
+	
 		
 		
 }

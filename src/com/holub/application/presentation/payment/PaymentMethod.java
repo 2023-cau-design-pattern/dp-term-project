@@ -1,8 +1,7 @@
 package com.holub.application.presentation.payment;
 
 public enum PaymentMethod {
-    CASH("cash"),
-    CREDIT_CARD("credit_card");
+    CREDIT_CARD("신용카드");
     private final String method;
 
     PaymentMethod(String method) {

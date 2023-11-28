@@ -114,6 +114,8 @@ public interface Table extends Serializable, Cloneable
 	 */
 
 	int  delete( Selector where );
+	
+	void orderBy(String Criteria);
 
 	/** begin a transaction */
 	public void begin();

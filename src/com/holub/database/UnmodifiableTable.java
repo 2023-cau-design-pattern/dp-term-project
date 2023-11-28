@@ -118,4 +118,10 @@ public class UnmodifiableTable implements Table
 	 *  that was passed to the constructor. Use the method with care.
 	 */
 	public Table extract(){ return wrapped;	}
+
+	@Override
+	public void orderBy(String Criteria) {
+		wrapped.orderBy(Criteria);
+		
+	}
 }

@@ -15,7 +15,7 @@ public class Tea extends SandwichDecorator {
 
     @Override
     public String getDescription() {
-        return super.getDescription() + ", with coke";
+        return super.getDescription() + ", with tea";
     }
 
     @Override

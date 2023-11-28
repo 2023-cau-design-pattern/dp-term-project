@@ -28,6 +28,8 @@ package com.holub.database;
 
 import java.io.*;
 import java.util.*;
+
+import com.holub.database.ConcreteTable.ObjectArrayComparator;
 import com.holub.tools.ArrayIterator;
 
 /**
@@ -600,6 +602,11 @@ import com.holub.tools.ArrayIterator;
 			} catch (Throwable t) {
 				report(t, "Undo");
 			}
+			try {
+				testOrderBy();
+			} catch (Throwable t) {
+				report(t, "OrderBy");
+			}
 		}
 
 		public void testInsert() {
@@ -839,6 +846,32 @@ import com.holub.tools.ArrayIterator;
 			people.rollback(Table.THIS_LEVEL);
 			System.out.println(people.toString());
 		}
+		
+		public void testOrderBy() {
+			System.out.println(people.toString());
+
+			System.out.println("begin/orderBy people by 'first'");
+			people.begin();
+			ComputeOrderBy orderBy = new ComputeOrderBy(people, "first");
+			orderBy.execute();
+			System.out.println(people.toString());
+			
+			people.begin();
+			System.out.println("begin/insert into people (Lea, Princess, 1)");
+			people.insert(new Object[] { "Lea", "Princess", "1" });
+			System.out.println(people.toString());
+
+			System.out.println("begin/orderBy people by 'addrId'");
+			people.begin();
+			orderBy = new ComputeOrderBy(people, "addrId");
+			orderBy.execute();
+			System.out.println(people.toString());
+			
+			System.out.println("commit(THIS_LEVEL)\n" + "rollback(Table.THIS_LEVEL)\n");
+			people.commit(Table.THIS_LEVEL);
+			people.rollback(Table.THIS_LEVEL);
+			System.out.println(people.toString());
+		}
 
 		public void print(Table t) { // tests the table iterator
 			Cursor current = t.rows();
@@ -848,5 +881,31 @@ import com.holub.tools.ArrayIterator;
 				System.out.println("");
 			}
 		}
+	}
+	
+	public void orderBy(String criteria) {
+		int indexOfCriteria = indexOf(criteria);
+		sortTable(rowSet, indexOfCriteria);
+	}
+	
+	private void sortTable(LinkedList rowSet, int indexOfCriteria) {
+		Collections.sort(rowSet, new ObjectArrayComparator(indexOfCriteria));
+	}
+	
+	class ObjectArrayComparator implements Comparator<Object[]> {
+	    private final int indexToCompare;
+
+	    public ObjectArrayComparator(int indexToCompare) {
+	        this.indexToCompare = indexToCompare;
+	    }
+
+	    @Override
+	    public int compare(Object[] o1, Object[] o2) {
+	        // 특정 인덱스의 값으로 비교
+	        Comparable<Object> value1 = (Comparable<Object>) o1[indexToCompare];
+	        Comparable<Object> value2 = (Comparable<Object>) o2[indexToCompare];
+
+	        return value1.compareTo(value2);
+	    }
 	}
 }

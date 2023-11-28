@@ -23,14 +23,14 @@ public class InputValidator {
             BreadType.FLATBREAD.getName().equals(bread);
     }
 
-    public void validatePaymentMethod(String method) {
-        if(!isValidPaymentMethod(method)) {
+    public void validatePaymentMethod(String input) {
+        if(!isValidPaymentMethod(input)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_PAYMENT_SELECTION.getMessage());
         }
     }
 
-    private boolean isValidPaymentMethod(String method) {
-        return PaymentMethod.CASH.getMethod().equals(method) || PaymentMethod.CREDIT_CARD.getMethod().equals(method);
+    private boolean isValidPaymentMethod(String input) {
+        return input.equals("y") || input.equals("n");
     }
 
     public void validateSauceType(String sauce) {

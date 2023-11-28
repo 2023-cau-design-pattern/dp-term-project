@@ -1,5 +1,9 @@
 package com.holub.application.presentation;
 
+import com.holub.application.constant.BeverageType;
+import com.holub.application.constant.BreadType;
+import com.holub.application.constant.SauceType;
+import com.holub.application.constant.ToppingType;
 import com.holub.application.presentation.message.ConsoleMessage;
 import com.holub.application.presentation.validator.InputValidator;
 import java.util.Arrays;
@@ -11,7 +15,7 @@ public class InputView {
         System.out.println(ConsoleMessage.GREETING.getMessage());
     }
 
-    public String readBread() {
+    public BreadType readBread() {
         while (true) {
             System.out.println();
             System.out.println(ConsoleMessage.BREAD_TYPE.getMessage());
@@ -20,30 +24,31 @@ public class InputView {
 
             try {
                 inputValidator.validateBreadType(bread);
-                return bread;
+                return BreadType.getBreadType(bread);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    public String readSauce() {
+    public SauceType[] readSauce() {
         while (true) {
             System.out.println();
             System.out.println(ConsoleMessage.SAUCE_TYPE.getMessage());
             System.out.println(ConsoleMessage.SAUCE_SELECTION.getMessage());
             String sauce = Console.readLine();
 
+
             try {
                 inputValidator.validateSauceType(sauce);
-                return sauce;
+                return SauceType.getSauceType(sauce);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    public List<String> readToppings() {
+    public ToppingType[] readToppings() {
         while (true) {
             System.out.println();
             System.out.println(ConsoleMessage.TOPPINGS_TYPE.getMessage());
@@ -52,14 +57,14 @@ public class InputView {
 
             try {
                 inputValidator.validateToppingsType(toppings);
-                return Arrays.stream(toppings.split(",")).toList();
+                return ToppingType.getToppings(toppings);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    public String readBeverage() {
+    public BeverageType[] readBeverage() {
         while (true) {
             System.out.println();
             System.out.println(ConsoleMessage.BEVERAGE_TYPE.getMessage());
@@ -68,7 +73,7 @@ public class InputView {
 
             try {
                 inputValidator.validateBeverageType(beverage);
-                return beverage;
+                return BeverageType.getBeverageType(beverage);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }

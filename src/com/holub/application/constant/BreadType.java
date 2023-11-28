@@ -13,6 +13,15 @@ public enum BreadType {
         this.name = name;
     }
 
+    public static BreadType getBreadType(String bread_name) {
+        for (BreadType bread : BreadType.values()) {
+            if (bread.getName().equals(bread_name)) {
+                return bread;
+            }
+        }
+        return null;
+    }
+
     public String getName() {
         return this.name;
     }

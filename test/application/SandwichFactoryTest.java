@@ -20,10 +20,8 @@ public class SandwichFactoryTest {
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
-        // Mock the PriceManager
         priceManager = mock(PriceManager.class);
         
-        // Inject the mocked PriceManager into the PriceManager singleton
         Field instance = PriceManager.class.getDeclaredField("instance");
         instance.setAccessible(true);
         instance.set(null, priceManager);
@@ -31,19 +29,15 @@ public class SandwichFactoryTest {
 
     @Test
     public void testSandwichCost() {
-        // Mock price returns for each item
         when(priceManager.getPrice(anyString())).thenReturn(1.00);
 
-        // Create a sandwich with specific parameters
         Sandwich sandwich = SandwichFactory.createSandwich(
             BreadType.HONEY_OAT, 
             new ToppingType[]{ToppingType.CHEESE, ToppingType.HAM}, 
             new SauceType[]{SauceType.MUSTARD}, 
             new BeverageType[]{BeverageType.COFFEE});
 
-        // Verify the cost calculation
         double cost = sandwich.getCost();
-        // Adjust the expected cost based on the number of items and their mocked prices
-        assertEquals(5.00, cost); // Example: adjust as necessary
+        assertEquals(5.00, cost);
     }
 }

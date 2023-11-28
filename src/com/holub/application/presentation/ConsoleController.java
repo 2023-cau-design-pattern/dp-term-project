@@ -1,7 +1,12 @@
 package com.holub.application.presentation;
 
+import com.holub.application.constant.BeverageType;
+import com.holub.application.constant.BreadType;
+import com.holub.application.constant.SauceType;
+import com.holub.application.constant.ToppingType;
 import com.holub.application.presentation.message.ConsoleMessage;
 import com.holub.application.presentation.payment.Payment;
+import java.util.Arrays;
 import java.util.List;
 
 public class ConsoleController {
@@ -32,10 +37,10 @@ public class ConsoleController {
     public Order readOrder() {
         inputView.greeting();
 
-        String bread = null;
-        String sauce = null;
-        List<String> toppings = null;
-        String beverage = null;
+        BreadType bread = null;
+        SauceType[] sauce = null;
+        ToppingType[] toppings = null;
+        BeverageType[] beverage = null;
 
         while (true) {
             bread = chooseBread(bread);
@@ -62,34 +67,39 @@ public class ConsoleController {
             }
         }
     }
-    private String chooseBread(String bread) {
+    private BreadType chooseBread(BreadType bread) {
         if (bread == null) {
             return inputView.readBread();
         }
         return bread;
     }
-    private String chooseSauce(String sauce) {
+    private SauceType[] chooseSauce(SauceType[] sauce) {
         if (sauce == null) {
             return inputView.readSauce();
         }
         return sauce;
     }
-    private List<String> chooseToppings(List<String> toppings) {
+    private ToppingType[] chooseToppings(ToppingType[] toppings) {
         if (toppings == null) {
             return inputView.readToppings();
         }
         return toppings;
     }
 
-    private String chooseBeverage(String beverage) {
+    private BeverageType[] chooseBeverage(BeverageType[] beverage) {
         if (beverage == null) {
             return inputView.readBeverage();
         }
         return beverage;
     }
 
-    private void showCurrentChoice(String bread, String sauce, List<String> toppings, String beverage) {
-        System.out.println("현재 선택하신 메뉴: 빵 - " + bread + ", 소스 - " + sauce + ", 토핑 - " + String.join(", ", toppings) + ", 음료 - " + beverage);
+    private void showCurrentChoice(BreadType bread, SauceType[] sauce, ToppingType[] toppings, BeverageType[] beverage) {
+        String breadName = bread == null ? OPTION_NONE : bread.getName();
+        String sauceName = sauce == null ? OPTION_NONE : String.join(", ", Arrays.stream(sauce).map(SauceType::getName).toArray(String[]::new));
+        String toppingsName = toppings == null ? OPTION_NONE : String.join(", ", Arrays.stream(toppings).map(ToppingType::getName).toArray(String[]::new));
+        String beverageName = beverage == null ? OPTION_NONE : String.join(", ", Arrays.stream(beverage).map(BeverageType::getName).toArray(String[]::new));
+
+        System.out.println("현재 선택하신 메뉴: 빵 - " + breadName + ", 소스 - " + sauceName + ", 토핑 - " + toppingsName + ", 음료 - " + beverageName);
     }
 
     private String askForModification() {

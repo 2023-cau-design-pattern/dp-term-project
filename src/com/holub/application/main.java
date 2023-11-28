@@ -1,18 +1,17 @@
 package com.holub.application;
 
-import com.holub.application.constant.BeverageType;
-import com.holub.application.constant.BreadType;
-import com.holub.application.constant.SauceType;
-import com.holub.application.constant.ToppingType;
-import com.holub.application.sandwich.Sandwich;
-import com.holub.application.sandwich.SandwichFactory;
+import com.holub.application.presentation.ConsoleController;
 
 public class main {
     public static void main(String[] args) {
-        ToppingType[] toppings = {ToppingType.CHEESE, ToppingType.HAM, ToppingType.TOMATO};
-        SauceType[] sauces = {SauceType.MUSTARD};
-        BeverageType[] beverages = {BeverageType.COFFEE};
-        Sandwich sandwich = SandwichFactory.createSandwich(BreadType.HONEY_OAT, toppings, sauces, beverages);
-        System.out.println(sandwich.getDescription() + " Cost: $" + sandwich.getCost());
+        // DB init
+
+
+        // Controller init
+        ConsoleController consoleController = new ConsoleController();
+
+        // Run
+
+        SandwichMachine.run(consoleController);
     }
 }

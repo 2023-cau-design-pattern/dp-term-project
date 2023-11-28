@@ -28,14 +28,14 @@ public class InputValidatorTest {
 
     @Test
     public void testValidPaymentMethod() {
-        assertDoesNotThrow(() -> validator.validatePaymentMethod("cash"));
-        assertDoesNotThrow(() -> validator.validatePaymentMethod("credit_card"));
+        assertDoesNotThrow(() -> validator.validatePaymentMethod("y"));
+        assertDoesNotThrow(() -> validator.validatePaymentMethod("n"));
     }
 
     @Test
     public void testInvalidPaymentMethod() {
         assertThrows(IllegalArgumentException.class, () -> validator.validatePaymentMethod("InvalidMethod"));
-        assertThrows(IllegalArgumentException.class, () -> validator.validatePaymentMethod("point"));
+        assertThrows(IllegalArgumentException.class, () -> validator.validatePaymentMethod("p"));
     }
 
     @Test

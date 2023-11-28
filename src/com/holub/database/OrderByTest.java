@@ -2,19 +2,37 @@ package com.holub.database;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class OrderByTest {
-
-	@Test
-	public void testOrderByCase1() {
-		Table people = TableFactory.create("people", new String[] { "last", "first", "addrId" });
+	private Table people;
+	private Table address;
+	
+	private String result;
+	
+	@BeforeEach
+	public void createTable() {
+		people = TableFactory.create("people", new String[] { "last", "first", "addrId" });
 
 		people.insert(new Object[] { "Holub", "Allen", "5" });
 		people.insert(new Object[] { "Flintstone", "Wilma", "2" });
 		people.insert(new String[] { "addrId", "first", "last" }, new Object[] { "4", "Fred", "Flintstone" });
 
 
+		address = TableFactory.create("address", new String[] { "addrId", "street"});
+		
+		address.insert(new Object[] { 152, "Sangdo"});
+		address.insert(new Object[] { 324, "Gangnam"});
+		address.insert(new Object[] { 23, "Jongno"});
+		address.insert(new Object[] { 1, "Daejeon"});
+		address.insert(new Object[] { 4, "Busan"});
+	}
+
+	@Test
+	public void testOrderByCase1() {
 		System.out.println(people.toString());
 
 		System.out.println("begin/orderBy people by 'first'");
@@ -22,8 +40,8 @@ public class OrderByTest {
 		ComputeOrderBy orderBy = new ComputeOrderBy(people, "first");
 		orderBy.execute();
 		
-		String result = people.toString();
-		System.out.println(result);
+		result = people.toString();
+		
 		assertEquals(result, "people\n"
 				+ "last	first	addrId	\n"
 				+ "----------------------------------------\n"
@@ -34,20 +52,14 @@ public class OrderByTest {
 	
 	@Test
 	public void testOrderByString() {
-		Table address = TableFactory.create("address", new String[] { "addrId", "street"});
-		
-		address.insert(new Object[] { 152, "Sangdo"});
-		address.insert(new Object[] { 324, "Gangnam"});
-		address.insert(new Object[] { 23, "Jongno"});
-		address.insert(new Object[] { 1, "Daejeon"});
-		address.insert(new Object[] { 4, "Busan"});
-
 		System.out.println("begin/orderBy address by 'addrId'");
+		
 		address.begin();
 		ComputeOrderBy orderBy = new ComputeOrderBy(address, "addrId");
 		orderBy.execute();
-		String result = address.toString();
-		System.out.println(result);
+		
+		result = address.toString();
+		
 		assertEquals(result, "address\n"
 				+ "addrId	street	\n"
 				+ "----------------------------------------\n"
@@ -60,20 +72,14 @@ public class OrderByTest {
 	
 	@Test
 	public void testOrderByInt() {
-		Table address = TableFactory.create("address", new String[] { "addrId", "street"});
-		
-		address.insert(new Object[] { 152, "Sangdo"});
-		address.insert(new Object[] { 324, "Gangnam"});
-		address.insert(new Object[] { 23, "Jongno"});
-		address.insert(new Object[] { 1, "Daejeon"});
-		address.insert(new Object[] { 4, "Busan"});
-		
 		System.out.println("begin/orderBy address by 'street'");
+		
 		address.begin();
 		ComputeOrderBy orderBy = new ComputeOrderBy(address, "street");
 		orderBy.execute();
-		String result = address.toString();
-		System.out.println(result);
+		
+		result = address.toString();
+		
 		assertEquals(result, "address\n"
 				+ "addrId	street	\n"
 				+ "----------------------------------------\n"
@@ -82,5 +88,10 @@ public class OrderByTest {
 				+ "324	Gangnam	\n"
 				+ "23	Jongno	\n"
 				+ "152	Sangdo	\n");
+	}
+	
+	@AfterEach
+	public void printResultTable() {
+		System.out.println(result);
 	}
 }

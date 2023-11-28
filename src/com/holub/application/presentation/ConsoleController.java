@@ -12,8 +12,21 @@ public class ConsoleController {
     private static final String OPTION_NONE = "없음";
     private final InputView inputView = new InputView();
 
-    public Payment readPayment(double totalPrice) {
-        return inputView.readPayment(totalPrice);
+    public void payment(Payment payment) {
+        String input = inputView.readPayment();
+        if (input.equals("y")) {
+            System.out.println(ConsoleMessage.CREDIT_CARD_PAYMENT.getMessage());
+            System.out.println(ConsoleMessage.CREDIT_CARD_PROCESSING.getMessage());
+
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            System.out.println(payment.toString());
+            System.out.println(ConsoleMessage.RESULT_MESSAGE.getMessage());
+        }
+        System.out.println(ConsoleMessage.ENDING.getMessage());
     }
 
     public Order readOrder() {

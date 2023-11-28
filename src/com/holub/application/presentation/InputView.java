@@ -1,10 +1,7 @@
 package com.holub.application.presentation;
 
 import com.holub.application.presentation.message.ConsoleMessage;
-import com.holub.application.presentation.payment.Payment;
-import com.holub.application.presentation.payment.PaymentMethod;
 import com.holub.application.presentation.validator.InputValidator;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 

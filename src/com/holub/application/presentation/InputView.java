@@ -74,36 +74,15 @@ public class InputView {
         }
     }
 
-    public Payment readPayment(double totalPrice) {
+    public String readPayment() {
         while (true) {
             System.out.println(ConsoleMessage.PAYMENT_TYPE.getMessage());
-            System.out.println(ConsoleMessage.PAYMENT_SELECTION.getMessage());
-            String methodInput = Console.readLine();
+            System.out.println(ConsoleMessage.REQUEST_PAYMENT.getMessage());
+            String input = Console.readLine();
 
             try {
-                inputValidator.validatePaymentMethod(methodInput);
-
-                PaymentMethod method = Arrays.stream(PaymentMethod.values())
-                    .filter(m -> m.getMethod().equals(methodInput))
-                    .findFirst()
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid payment method"));
-
-                if (PaymentMethod.CASH.equals(method)) {
-                    System.out.println(totalPrice + ConsoleMessage.CASH_PAYMENT.getMessage());
-                }
-                else {
-                    System.out.println(ConsoleMessage.CREDIT_CARD_PAYMENT.getMessage());
-                    System.out.println(ConsoleMessage.CREDIT_CARD_PROCESSING.getMessage());
-
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        System.out.println("An interruption occurred during payment processing.");
-                    }
-                }
-                System.out.println(ConsoleMessage.RESULT_MESSAGE.getMessage());
-                return new Payment(method, totalPrice, LocalDate.now());
+                inputValidator.validatePaymentMethod(input);
+                return input;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }

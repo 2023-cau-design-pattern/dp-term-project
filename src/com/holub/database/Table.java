@@ -50,7 +50,8 @@ public interface Table extends Serializable, Cloneable
 	 *  piece of information that it was given.
 	 */
 	String  name();
-
+	
+	String selectAll();
 	/** Rename the table to the indicated name. This method
 	 *  can also be used for naming the anonymous table that's
 	 *  returned from {@link #select select(...)}

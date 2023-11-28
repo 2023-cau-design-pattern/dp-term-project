@@ -75,6 +75,10 @@ public class UnmodifiableTable implements Table
 	public void begin	 (			 ){ illegal(); }
 	public void commit	 (boolean all){ illegal(); }
 	public void rollback (boolean all){ illegal(); }
+	
+	public String selectAll() {
+		return wrapped.selectAll();
+	}
 
 	private final void illegal()
 	{	throw new UnsupportedOperationException();

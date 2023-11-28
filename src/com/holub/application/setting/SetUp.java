@@ -1,6 +1,8 @@
 package com.holub.application.setting;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.holub.database.ComputeOrderBy;
@@ -8,16 +10,46 @@ import com.holub.database.Cursor;
 import com.holub.database.Selector;
 import com.holub.database.Table;
 import com.holub.database.TableFactory;
+//import com.holub.database.ConcreteTable.Test;
 
 public class SetUp {
-	public Table menu;
-	public Table order;
+	public static Table menu;
+	public static Table order; // 주문 내역 인서트, order select
 	
 	public SetUp() { 
 		menu = TableFactory.create("menu", new String[] { "name", "price" });
 		order = TableFactory.create("order", new String[] { "title", "totalPrice", "date" });
 	}
+	
+	public String selectMenu(List columns) {
+		Selector flintstoneSelector = new Selector.Adapter() {
+			public boolean approve(Cursor[] tables) {
+				return true; 
+			}
+		};
+		
+		Table result = menu.select(flintstoneSelector, columns);
+		
+		return result.selectAll();
+		
+	}
+	
+	public String selectOrder(List columns) {
+		Selector flintstoneSelector = new Selector.Adapter() {
+			public boolean approve(Cursor[] tables) {
+				return true;
+			}
+		};
+		
+		Table result = order.select(flintstoneSelector, columns);
+		
+		return result.selectAll();
+	}
+	
+		
+		
 }
+
 
 
 

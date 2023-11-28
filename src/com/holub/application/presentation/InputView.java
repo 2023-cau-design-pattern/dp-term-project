@@ -13,6 +13,7 @@ public class InputView {
 
     public String readBread() {
         while (true) {
+            System.out.println();
             System.out.println(ConsoleMessage.BREAD_TYPE.getMessage());
             System.out.println(ConsoleMessage.BREAD_SELECTION.getMessage());
             String bread = Console.readLine();
@@ -28,6 +29,7 @@ public class InputView {
 
     public String readSauce() {
         while (true) {
+            System.out.println();
             System.out.println(ConsoleMessage.SAUCE_TYPE.getMessage());
             System.out.println(ConsoleMessage.SAUCE_SELECTION.getMessage());
             String sauce = Console.readLine();
@@ -43,6 +45,7 @@ public class InputView {
 
     public List<String> readToppings() {
         while (true) {
+            System.out.println();
             System.out.println(ConsoleMessage.TOPPINGS_TYPE.getMessage());
             System.out.println(ConsoleMessage.TOPPINGS_SELECTION.getMessage());
             String toppings = Console.readLine();
@@ -58,6 +61,7 @@ public class InputView {
 
     public String readBeverage() {
         while (true) {
+            System.out.println();
             System.out.println(ConsoleMessage.BEVERAGE_TYPE.getMessage());
             System.out.println(ConsoleMessage.BEVERAGE_SELECTION.getMessage());
             String beverage = Console.readLine();
@@ -73,6 +77,7 @@ public class InputView {
 
     public String readPayment() {
         while (true) {
+            System.out.println();
             System.out.println(ConsoleMessage.PAYMENT_TYPE.getMessage());
             System.out.println(ConsoleMessage.REQUEST_PAYMENT.getMessage());
             String input = Console.readLine();

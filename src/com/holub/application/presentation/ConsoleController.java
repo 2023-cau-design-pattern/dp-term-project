@@ -44,12 +44,11 @@ public class ConsoleController {
             beverage = chooseBeverage(beverage);
 
             String modificationChoice = askForModification();
+            showCurrentChoice(bread, sauce, toppings, beverage);
             if (modificationChoice.equals(OPTION_NONE)) {
                 return new Order(bread, sauce, toppings, beverage);
             }
-            showCurrentChoice(bread, sauce, toppings, beverage);
-
-            if (modificationChoice.equals(OPTION_BREAD)) {
+            else if (modificationChoice.equals(OPTION_BREAD)) {
                 bread = null;
             }
             else if (modificationChoice.equals(OPTION_SAUCE)) {
@@ -94,6 +93,7 @@ public class ConsoleController {
     }
 
     private String askForModification() {
+        System.out.println();
         System.out.println(ConsoleMessage.ASK_FOR_CHANGE.getMessage());
         String choice = Console.readLine();
 

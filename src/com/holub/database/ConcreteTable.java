@@ -550,6 +550,26 @@ import com.holub.tools.ArrayIterator;
 		return out.toString();
 	}
 
+	public String selectAll() {
+		LinkedList rowSet = this.rowSet;
+//		System.out.println(rowSet);
+		String result = "";
+		Cursor cursor = rows();
+		for (Cursor i = cursor; i.advance();) {
+			Iterator columns = i.columns();
+			while (columns.hasNext()) {
+				Object next = columns.next();
+				if (next == null)
+					result += "null\t";
+				
+				else
+					result += next.toString() + "\t";
+			}
+			result +='\n';
+		}
+		return result;
+	}
+	
 	// ----------------------------------------------------------------------
 	public final static class Test {
 		public static void main(String[] args) {

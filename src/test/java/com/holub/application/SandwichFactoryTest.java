@@ -1,5 +1,8 @@
 package com.holub.application;
 
+import com.holub.application.presentation.ConsoleController;
+import com.holub.application.service.OrderService;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
@@ -17,6 +20,7 @@ import java.lang.reflect.Field;
 public class SandwichFactoryTest {
 
     private PriceManager priceManager;
+    private OrderService orderService = OrderService.getInstance();
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
@@ -39,5 +43,24 @@ public class SandwichFactoryTest {
 
         double cost = sandwich.getCost();
         assertEquals(5.00, cost);
+    }
+
+    @Test
+    public void testCreateSandwich() {
+        BreadType breadType = BreadType.HONEY_OAT;
+        ToppingType[] toppings = {ToppingType.CHEESE, ToppingType.HAM};
+        SauceType[] sauces = {SauceType.MUSTARD};
+        BeverageType[] beverages = {BeverageType.COFFEE};
+
+        Sandwich sandwich = SandwichFactory.createSandwich(breadType, toppings, sauces, beverages);
+
+        assertNotNull(sandwich);
+        // Verify that the sandwich description contains the expected elements
+        String description = sandwich.getDescription();
+        assertTrue(description.contains("Honey Oat Bread Sandwich"));
+        assertTrue(description.contains("cheese"));
+        assertTrue(description.contains("ham"));
+        assertTrue(description.contains("mustard"));
+        assertTrue(description.contains("coffee"));
     }
 }

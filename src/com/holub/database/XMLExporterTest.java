@@ -2,12 +2,9 @@ package com.holub.database;
 
 import org.junit.*;
 
-import javax.sql.rowset.spi.XmlWriter;
-
 import static org.junit.Assert.*;
 import java.io.*;
 import java.util.Arrays;
-import java.util.Iterator;
 
 public class XMLExporterTest {
 

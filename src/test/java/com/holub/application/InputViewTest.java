@@ -1,19 +1,23 @@
-package com.holub.application.presentation;
+package com.holub.application;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.holub.application.constant.BeverageType;
 import com.holub.application.constant.BreadType;
 import com.holub.application.constant.SauceType;
 import com.holub.application.constant.ToppingType;
+import com.holub.application.presentation.Console;
+import com.holub.application.presentation.InputView;
 import com.holub.application.presentation.message.ErrorMessage;
 import java.util.Arrays;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class InputViewTest {
 

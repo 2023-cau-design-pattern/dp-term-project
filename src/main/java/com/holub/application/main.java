@@ -4,6 +4,7 @@ import com.holub.application.presentation.Console;
 import com.holub.application.presentation.ConsoleController;
 
 public class main {
+
     public static void main(String[] args) {
         // Controller init
         ConsoleController consoleController = new ConsoleController();

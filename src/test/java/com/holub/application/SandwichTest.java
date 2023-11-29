@@ -1,4 +1,4 @@
-package application;
+package com.holub.application;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

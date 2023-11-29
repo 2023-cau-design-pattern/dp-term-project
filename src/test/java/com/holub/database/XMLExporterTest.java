@@ -1,21 +1,20 @@
 package com.holub.database;
 
-import org.junit.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.Assert.*;
 import java.io.*;
 import java.util.Arrays;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class XMLExporterTest {
 
-//    private StringWriter stringWriter;
     private FileWriter fileWriter;
     private XMLExporter exporter;
     private File outputFile;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
-//        stringWriter = new StringWriter();
         outputFile = new File("test.xml");
         fileWriter = new FileWriter(outputFile);
         exporter = new XMLExporter(fileWriter);

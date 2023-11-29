@@ -1,6 +1,8 @@
-package com.holub.application.presentation.validator;
+package com.holub.application;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.holub.application.presentation.validator.InputValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 

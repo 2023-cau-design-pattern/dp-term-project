@@ -1,11 +1,13 @@
 package com.holub.database;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Iterator;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class XMLImporterTest {
 
@@ -23,7 +25,7 @@ public class XMLImporterTest {
 
     private XMLImporter importer;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         importer = new XMLImporter(new StringReader(TEST_XML));
         importer.startTable();

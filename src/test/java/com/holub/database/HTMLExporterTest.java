@@ -1,11 +1,15 @@
 package com.holub.database;
 
-import org.junit.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class HTMLExporterTest {
 
@@ -13,7 +17,7 @@ public class HTMLExporterTest {
     private FileWriter fileWriter;
     private HTMLExporter exporter;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         outputFile = new File("test.html");
         fileWriter = new FileWriter(outputFile);

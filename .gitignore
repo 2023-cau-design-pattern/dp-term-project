@@ -6,3 +6,5 @@
 ..project.*
 bin
 *.class
+build
+.gradle
